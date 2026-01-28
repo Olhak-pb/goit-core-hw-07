@@ -80,7 +80,7 @@ def add_birthday(args: list[str], book: AddressBook) -> str:
         raise KeyError
 
     record.add_birthday(birthday)
-    return "Birthday added
+    return "Birthday added"
 
 
 @input_error
@@ -97,10 +97,10 @@ def show_birthday(args: list[str], book: AddressBook) -> str:
 
 @input_error
 
-def birthdays(args: list[str], book: AdressBook) -> str:
+def birthdays(args: list[str], book: AddressBook) -> str:
     upcoming = book.get_upcoming_birthdays()
     if not upcoming:
-        return "No birthays in the next 7 days."
+        return "No birthdays in the next 7 days."
 
     lines = []
     for item in upcoming:
