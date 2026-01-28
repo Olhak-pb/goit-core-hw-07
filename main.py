@@ -1,3 +1,4 @@
+"""A terminal-based assistant bot that allows users to add, change and view contacts"""
 from address_book import AddressBook, Record
 
 
@@ -5,6 +6,7 @@ def input_error(func):
     """Decorator that handles user input errors for command handlers."""
 
     def inner(*args, **kwargs):
+        """Inner function that handles errors and returns appropriate messages."""
         try:
             return func(*args, **kwargs)
         except ValueError as e:
@@ -73,6 +75,7 @@ def show_all(args: list[str], book: AddressBook) -> str:
 
 @input_error
 def add_birthday(args: list[str], book: AddressBook) -> str:
+    """Function that allows adding a birthday to an existing contact"""
     name, birthday = args
 
     record = book.find(name)
@@ -85,6 +88,7 @@ def add_birthday(args: list[str], book: AddressBook) -> str:
 
 @input_error
 def show_birthday(args: list[str], book: AddressBook) -> str:
+    """Shows the birthday of a specific contact"""
     name = args[0]
 
     record = book.find(name)
@@ -96,8 +100,8 @@ def show_birthday(args: list[str], book: AddressBook) -> str:
     return str(record.birthday)
 
 @input_error
-
 def birthdays(args: list[str], book: AddressBook) -> str:
+    """Shows upcoming birthdays in the next 7 days"""
     upcoming = book.get_upcoming_birthdays()
     if not upcoming:
         return "No birthdays in the next 7 days."
