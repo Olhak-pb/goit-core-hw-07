@@ -15,6 +15,8 @@ def input_error(func):
             return "Enter the argument for the command"
         except KeyError:
             return "Contact not found"
+        except AttributeError:
+            return "Contact not found"
     return inner
 
 
@@ -46,10 +48,8 @@ def change_contact(args: list[str], book: AddressBook) -> str:
     name, old_phone, new_phone = args
 
     record = book.find(name)
-    if record is None:
-        raise KeyError
-
     record.edit_phone(old_phone, new_phone)
+
     return "Contact updated"
 
 @input_error
@@ -58,8 +58,6 @@ def show_phone(args: list[str], book: AddressBook) -> str:
     name = args[0]
 
     record = book.find(name)
-    if record is None:
-        raise KeyError
 
     if not record.phones:
         return "No phones saved for this contact"
@@ -79,8 +77,6 @@ def add_birthday(args: list[str], book: AddressBook) -> str:
     name, birthday = args
 
     record = book.find(name)
-    if record is None:
-        raise KeyError
 
     record.add_birthday(birthday)
     return "Birthday added"
@@ -92,8 +88,6 @@ def show_birthday(args: list[str], book: AddressBook) -> str:
     name = args[0]
 
     record = book.find(name)
-    if record is None:
-        raise KeyError
 
     if record.birthday is None:
         return "No birthday saved for this contact"
